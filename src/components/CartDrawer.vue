@@ -3,59 +3,36 @@
   Side drawer for cart functionality on desktop
 -->
 <template>
-  <v-navigation-drawer
-    v-model="cartStore.isDrawerOpen"
-    location="right"
-    temporary
-    width="400"
-    class="cart-drawer"
-  >
+  <v-navigation-drawer v-model="cartStore.isDrawerOpen" location="right" temporary width="400" class="cart-drawer">
     <!-- Header -->
     <div class="d-flex align-center justify-space-between pa-4 ">
       <h2 class="text-h6">My Cart</h2>
-      <v-btn 
-        icon 
-        variant="text" 
-        @click="cartStore.closeDrawer()"
-      >
+      <v-btn icon variant="text" @click="cartStore.closeDrawer()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </div>
 
     <!-- Cart Content -->
-    <div class="cart-content" >
+    <div class="cart-content">
       <!-- Empty Cart State -->
-      <div v-if="cartStore.isEmpty" class="empty-cart pa-6 text-center "  >
+      <div v-if="cartStore.isEmpty" class="empty-cart pa-6 text-center ">
         <v-icon size="80" color="grey-lighten-2">mdi-cart-outline</v-icon>
         <h3 class="text-h6 mt-4 mb-2">Your cart is empty</h3>
         <p class="text-body-2 text-grey mb-4">Add some products to get started</p>
-        <v-btn 
-          color="primary" 
-          @click="goToHome"
-        >
+        <v-btn color="primary" @click="goToHome">
           Start Shopping
         </v-btn>
       </div>
 
       <!-- Cart Items -->
-      <div v-else class="cart-items" >
+      <div v-else class="cart-items">
         <div class="pa-4">
-          <div 
-            v-for="item in cartStore.items" 
-            :key="item.product.id"
-            class="cart-item mb-4"
-          >
-            <v-card  flat elevation="0" class="cart-item-card pa-3">
+          <div v-for="item in cartStore.items" :key="item.product.id" class="cart-item mb-4">
+            <v-card flat elevation="0" class="cart-item-card pa-3">
               <div class="d-flex align-center">
                 <!-- Product Image -->
                 <div class="item-image mr-3">
-                  <v-img
-                    :src="item.product.image"
-                    width="60"
-                    height="60"
-                    contain
-                    class="rounded"
-                  />
+                  <v-img :src="item.product.image" width="60" height="60" contain class="rounded" />
                 </div>
 
                 <!-- Product Info -->
@@ -76,31 +53,17 @@
 
                 <!-- Actions -->
                 <div class="item-actions">
-                  <v-btn 
-                    size="small" 
-                    color="error" 
-                    variant="text"
-                    @click="cartStore.removeFromCart(item.product.id)"
-                    class="mb-2"
-                  >
+                  <v-btn size="small" color="error" variant="text" @click="cartStore.removeFromCart(item.product.id)"
+                    class="mb-2">
                     <v-icon size="16">mdi-delete</v-icon>
                   </v-btn>
-                  
+
                   <div class="d-flex align-center">
-                    <v-btn 
-                       
-                      size="small" 
-                      @click="cartStore.updateQuantity(item.product.id, item.quantity - 1)"
-                    >
+                    <v-btn size="small" @click="cartStore.updateQuantity(item.product.id, item.quantity - 1)">
                       <v-icon size="16">mdi-minus</v-icon>
                     </v-btn>
                     <span class="mx-2 font-weight-medium">{{ item.quantity }}</span>
-                    <v-btn 
-                       
-                      size="small" 
-                      
-                      @click="cartStore.updateQuantity(item.product.id, item.quantity + 1)"
-                    >
+                    <v-btn size="small" @click="cartStore.updateQuantity(item.product.id, item.quantity + 1)">
                       <v-icon size="16">mdi-plus</v-icon>
                     </v-btn>
                   </div>
@@ -112,62 +75,52 @@
           </div>
         </div>
 
-       
+
         <!-- Cart Summary -->
         <div class="cart-summary pa-4">
 
-          <v-card color="gray" flat elevation="0" border="0" rounded="lg" 
-          class="pa-4 cart-card">
-          <div>
-            <p class="text-body-2 text-grey ">
-              Seller will receive his payment after you assign item as delivered
-            </p>
-          </div>
+          <v-card color="gray" flat elevation="0" border="0" rounded="lg" class="pa-4 cart-card">
+            <div>
+              <p class="text-body-2 text-grey ">
+                Seller will receive his payment after you assign item as delivered
+              </p>
+            </div>
           </v-card>
           <br>
 
-          <div class ="background-grey pa-4">
-          <div class="summary-details mb-4">
-            <div class="d-flex justify-space-between mb-2">
-              <span>Subtotal</span>
-              <span>{{ formatPrice(cartStore.subtotal) }}</span>
-            </div>
-            <div class="d-flex justify-space-between mb-2 ">
-              <span>Discount</span>
-              <span>{{ formatPrice(cartStore.discount) }}</span>
-            </div>
-            <div class="d-flex justify-space-between mb-3">
-              <span>Shipping Fee</span>
-              <span>{{ cartStore.shippingFee }} IQD</span>
-            </div>
-            <v-divider class="mb-3" />
-            <div class="d-flex justify-space-between text-h6 font-weight-bold">
-              <span>Total <span class="text-body-2 font-weight-normal text-grey">
-                Tax Inclusive</span></span>
+          <div class="background-grey pa-4">
+            <div class="summary-details mb-4">
+              <div class="d-flex justify-space-between mb-2">
+                <span>Subtotal</span>
+                <span>{{ formatPrice(cartStore.subtotal) }}</span>
+              </div>
+              <div class="d-flex justify-space-between mb-2 ">
+                <span>Discount</span>
+                <span>{{ formatPrice(cartStore.discount) }}</span>
+              </div>
+              <div class="d-flex justify-space-between mb-3">
+                <span>Shipping Fee</span>
+                <span>{{ cartStore.shippingFee }} IQD</span>
+              </div>
+              <v-divider class="mb-3" />
+              <div class="d-flex justify-space-between text-h6 font-weight-bold">
+                <span>Total <span class="text-body-2 font-weight-normal text-grey">
+                    Tax Inclusive</span></span>
 
-              <span>{{ formatPrice(cartStore.total) }}</span>
+                <span>{{ formatPrice(cartStore.total) }}</span>
+              </div>
             </div>
-          </div>
           </div>
 
 
           <!-- Checkout Button -->
-        <div class="d-flex justify-space-between align-center mt-4">
-        <v-btn 
-        icon 
-        variant="text" 
-        @click="cartStore.closeDrawer()"
-      >
-        close
-      </v-btn>
-          <v-btn
-            color="primary"
-            size="large"
-            
-            @click="checkout"
-            rounded="lg">
-            Proceed to Checkout
-          </v-btn>
+          <div class="d-flex justify-space-between align-center mt-4">
+            <v-btn icon variant="text" @click="cartStore.closeDrawer()">
+              close
+            </v-btn>
+            <v-btn color="primary" size="large" @click="checkout" rounded="lg">
+              Proceed to Checkout
+            </v-btn>
           </div>
 
 
@@ -233,7 +186,6 @@ export default {
 </script>
 
 <style scoped>
-
 .cart-drawer {
   z-index: 2000;
 }
@@ -273,7 +225,8 @@ export default {
 }
 
 .cart-card {
-  background-color: #e4dcd1; /* light beige */
+  background-color: #e4dcd1;
+  /* light beige */
 }
 
 .empty-cart {
@@ -283,8 +236,9 @@ export default {
   justify-content: center;
   height: 100%;
 }
+
 .background-grey {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
   /* border-radius: 8px;        */
 }
 </style>

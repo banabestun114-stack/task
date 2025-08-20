@@ -1,14 +1,7 @@
 <template>
   <div>
     <!-- Bottom Navigation -->
-    <v-bottom-navigation
-      v-model="currentRoute"
-      color="primary"
-      fixed
-      grow
-      height="64"
-      class="bottom-nav"
-    >
+    <v-bottom-navigation v-model="currentRoute" color="primary" fixed grow height="64" class="bottom-nav">
       <v-btn @click="navigateTo('/')" :class="{ 'active-tab': currentRoute === 0 }">
         <v-icon>mdi-home</v-icon>
         <span>Home</span>
@@ -19,8 +12,11 @@
         <span>Liked</span>
       </v-btn>
 
-      <!-- just a placeholder to keep spacing balanced -->
-      <div class="nav-center-placeholder"></div>
+      <v-btn @click="navigateTo('/cart')" :class="{ 'active-tab': currentRoute === 2 }">
+        <v-icon>mdi-cart-outline</v-icon>
+        <span>Cart</span>
+        <v-badge v-if="cartStore.totalItems > 0" :content="cartStore.totalItems" color="error" class="cart-badge" />
+      </v-btn>
 
       <v-btn @click="navigateTo('/store')" :class="{ 'active-tab': currentRoute === 3 }">
         <v-icon>mdi-store</v-icon>
@@ -31,26 +27,29 @@
         <v-icon>mdi-menu</v-icon>
         <span>More</span>
       </v-btn>
-      <div class="nav-center">
-      <v-btn class="add-btn-simple" @click="navigateTo('/place-ad')" elevation="0">
-        <v-icon size="28" color="white">mdi-plus</v-icon>
-      </v-btn>
-    </div>
+      <div class="nav-center" v-if="!isCartPage">
+        <v-btn class="add-btn-simple" @click="navigateTo('/place-ad')" elevation="0">
+          <v-icon size="28" color="white">mdi-plus</v-icon>
+        </v-btn>
+      </div>
     </v-bottom-navigation>
   </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useCartStore } from '../stores/cart'
 
 export default {
   name: 'BottomNavigation',
   setup() {
     const router = useRouter()
     const route = useRoute()
+    const cartStore = useCartStore()
 
     const currentRoute = ref(0)
+    const isCartPage = computed(() => route.path === '/cart')
 
     const navigateTo = (path) => {
       router.push(path)
@@ -60,16 +59,32 @@ export default {
     watch(
       () => route.path,
       (newPath) => {
-        if (newPath === '/favorites') {
+        if (newPath === '/') {
           currentRoute.value = 0
+        } else if (newPath === '/favorites') {
+          currentRoute.value = 1
+        } else if (newPath === '/cart') {
+          currentRoute.value = 2
+        } else if (newPath === '/store') {
+          currentRoute.value = 3
+        } else if (newPath === '/more') {
+          currentRoute.value = 4
         }
       },
       { immediate: true }
     )
 
+    const showMoreMenu = () => {
+      // Placeholder for more menu functionality
+      console.log('Show more menu')
+    }
+
     return {
       currentRoute,
       navigateTo,
+      cartStore,
+      showMoreMenu,
+      isCartPage,
     }
   },
 }
@@ -91,10 +106,12 @@ export default {
 
 .nav-center {
   position: fixed;
-  bottom: 32px; /* sits half inside, half outside the nav */
+  bottom: 32px;
+  /* sits half inside, half outside the nav */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 200; /* above the nav */
+  z-index: 200;
+  /* above the nav */
 }
 
 .add-btn-simple {
@@ -110,7 +127,8 @@ export default {
   justify-content: center;
   font-size: 28px !important;
   margin: 0 !important;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* optional shadow */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  /* optional shadow */
   border: none !important;
   transition: background 0.2s, transform 0.2s;
 }
@@ -158,8 +176,16 @@ export default {
     min-height: 56px !important;
     font-size: 24px !important;
   }
+
   .nav-center {
-    bottom: 28px; /* adjust for smaller button */
+    bottom: 28px;
+    /* adjust for smaller button */
   }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
 }
 </style>

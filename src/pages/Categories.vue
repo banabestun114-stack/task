@@ -3,16 +3,20 @@
   Displays all available product categories with navigation
 -->
 <template>
-  <v-container class="categories-page pa-4" :class="{ 'desktop-full': !isMobile }">
+  <v-container
+    class="categories-page pa-4"
+    :class="{ 'desktop-full': !isMobile }"
+  >
     <!-- Header -->
     <div class="header-row d-flex flex-column align-center mb-6">
       <div class="d-flex align-center w-100">
         <v-btn icon class="back-btn" @click="goBack">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <div class="flex-grow-1"></div>
+        <div class="flex-grow-1">
+          <h1 class="categories-title mt-2 mb-0">Categories</h1>
+        </div>
       </div>
-      <h1 class="categories-title mt-2 mb-0">Categories</h1>
     </div>
 
     <!-- Categories List -->
@@ -43,56 +47,55 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useProductStore } from '../stores/products'
-import { useDisplay } from 'vuetify'
-
+import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useProductStore } from "../stores/products";
+import { useDisplay } from "vuetify";
 
 export default {
-  name: 'CategoriesPage',
+  name: "CategoriesPage",
   setup() {
-    const router = useRouter()
-    const productStore = useProductStore()
-    const { mobile } = useDisplay()
-    const isMobile = computed(() => mobile.value)
+    const router = useRouter();
+    const productStore = useProductStore();
+    const { mobile } = useDisplay();
+    const isMobile = computed(() => mobile.value);
 
-    const loading = computed(() => productStore.loading)
+    const loading = computed(() => productStore.loading);
 
     // Category list (labels only, no icons/colors/counts)
     const categoryList = computed(() => [
-      { label: 'All categories', value: 'all' },
-      { label: 'Electronics', value: 'electronics' },
-      { label: 'Home & Garden', value: 'jewelery' },
-      { label: 'Fashion', value: "men's clothing" },
-      { label: 'Toys', value: 'electronics' },
-      { label: 'Sporting Goods', value: "women's clothing" },
-      { label: 'Business & Industrial', value: 'electronics' },
-      { label: 'Jewelry & Watches', value: 'jewelery' },
-      { label: 'Vintage', value: "women's clothing" },
-      { label: 'Handmade', value: 'jewelery' },
-      { label: 'Office', value: 'electronics' },
-      { label: 'Outdoor', value: 'electronics' },
-      { label: 'Tools', value: 'electronics' },
-    ])
+      { label: "All categories", value: "all" },
+      { label: "Electronics", value: "electronics" },
+      { label: "Home & Garden", value: "jewelery" },
+      { label: "Fashion", value: "men's clothing" },
+      { label: "Toys", value: "electronics" },
+      { label: "Sporting Goods", value: "women's clothing" },
+      { label: "Business & Industrial", value: "electronics" },
+      { label: "Jewelry & Watches", value: "jewelery" },
+      { label: "Vintage", value: "women's clothing" },
+      { label: "Handmade", value: "jewelery" },
+      { label: "Office", value: "electronics" },
+      { label: "Outdoor", value: "electronics" },
+      { label: "Tools", value: "electronics" },
+    ]);
 
     const goBack = () => {
-      router.back()
-    }
+      router.back();
+    };
 
     const selectCategory = (category) => {
-      productStore.setSelectedCategory(category.value)
-      router.push('/')
-    }
+      productStore.setSelectedCategory(category.value);
+      router.push("/");
+    };
 
     onMounted(async () => {
       if (productStore.products.length === 0) {
-        await productStore.fetchProducts()
+        await productStore.fetchProducts();
       }
       if (productStore.categories.length === 0) {
-        await productStore.fetchCategories()
+        await productStore.fetchCategories();
       }
-    })
+    });
 
     return {
       loading,
@@ -100,9 +103,9 @@ export default {
       goBack,
       selectCategory,
       isMobile,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>

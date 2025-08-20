@@ -3,13 +3,7 @@
   Main navigation header for desktop view with logo, search, and user actions
 -->
 <template>
-  <v-app-bar 
-    color="white" 
-    elevation="0" 
-    border="0"
-    height="80"
-    class="desktop-header"
-  >
+  <v-app-bar color="white" elevation="0" border="0" height="80" class="desktop-header">
     <v-container fluid class="d-flex align-center px-6">
       <!-- Logo and Brand -->
       <div class="d-flex align-center mr-8">
@@ -22,13 +16,13 @@
           </div>
           <div>
             <h2 class="text-h6 font-weight-bold mb-0">
-            <span class="text-black">SECOND</span><span class="text-primary">HAND</span>
+              <span class="text-black">SECOND</span><span class="text-primary">HAND</span>
             </h2>
             <p class="text-caption text-grey mb-0">SHOPHOLIC</p>
           </div>
         </div>
       </div>
-      <v-divider vertical class="mx-3"/>
+      <v-divider vertical class="mx-3" />
 
       <!-- Navigation Links -->
       <div class="d-flex align-center mr-8">
@@ -47,16 +41,8 @@
         </v-btn>
 
         <!-- Cart Button -->
-        <v-btn 
-          icon 
-          class="mr-4 square-btn" 
-          @click="cartStore.toggleDrawer()"
-        >
-          <v-badge 
-            :content="cartStore.totalItems" 
-            color="warning" 
-            v-if="cartStore.totalItems > 0"
-          >
+        <v-btn icon class="mr-4 square-btn" @click="cartStore.toggleDrawer()">
+          <v-badge :content="cartStore.totalItems" color="warning" v-if="cartStore.totalItems > 0">
             <v-icon>mdi-cart-outline</v-icon>
           </v-badge>
           <v-icon v-else>mdi-cart-outline</v-icon>
@@ -77,40 +63,22 @@
   </v-app-bar>
 
   <!-- Sidebar Navigation -->
-  <v-navigation-drawer
-    v-model="sidebarOpen"
-    permanent                 
-    width="100"
-    class="desktop-sidebar"
-   
-  >
+  <v-navigation-drawer v-model="sidebarOpen" permanent width="100" class="desktop-sidebar">
     <div class="pa-4">
       <!-- Place Ad Button -->
-       <div class="d-flex justify-center ">
-      <v-btn
-        color="primary"
-        size="medium"
-        class="mb-3 square-btn "
-        rounded="lg"
-        prepend-icon="mdi-plus"
-      >
-      </v-btn>
+      <div class="d-flex justify-center ">
+        <v-btn color="primary" size="medium" class="mb-3 square-btn " rounded="lg" prepend-icon="mdi-plus">
+        </v-btn>
       </div>
-       <div class="text-center">
-    <div>Place</div>
-    <div>Ad</div>
-  </div>
+      <div class="text-center">
+        <div>Place</div>
+        <div>Ad</div>
+      </div>
 
       <!-- Navigation Items -->
       <v-list>
-        <v-list-item
-          v-for="item in navigationItems"
-          :key="item.title"
-          :prepend-icon="item.icon"
-          :title="item.title"
-          @click="handleNavigation(item)"
-          class="mb-2"
-        />
+        <v-list-item v-for="item in navigationItems" :key="item.title" :prepend-icon="item.icon" :title="item.title"
+          @click="handleNavigation(item)" class="mb-2" />
       </v-list>
     </div>
   </v-navigation-drawer>
@@ -133,11 +101,11 @@ export default {
     // Navigation items for sidebar
     const navigationItems = [
       { icon: 'mdi-view-grid', route: '/categories' },
-      {  icon: 'mdi-heart', route: '/favorites' },
-      {  icon: 'mdi-package-variant' },
-      {  icon: 'mdi-home', route: '/' },
+      { icon: 'mdi-heart', route: '/favorites' },
+      { icon: 'mdi-package-variant' },
+      { icon: 'mdi-home', route: '/' },
       { icon: 'mdi-message' },
-      {  icon: 'mdi-cog' },
+      { icon: 'mdi-cog' },
     ]
 
     /**
@@ -186,30 +154,37 @@ export default {
 
 .desktop-sidebar {
   border: none !important;
-  box-shadow: none !important; /* optional if you don’t want shadow */
-  background-color: #fff;       /* or whatever color you want */
+  box-shadow: none !important;
+  /* optional if you don’t want shadow */
+  background-color: #fff;
+  /* or whatever color you want */
 }
 
 .desktop-sidebar .v-list-item {
   border-radius: 8px;
   margin-bottom: 4px;
-  border: none !important;     
+  border: none !important;
   box-shadow: none !important;
 }
 
 .desktop-sidebar .v-list-item:hover {
-  background-color:transparent !important;
-}
-.square-btn {
-  width: 43px;   /* same height & width */
-  height: 43px;
-  box-shadow: 1px 1px 3px rgba(4, 4, 4, 0.2);
-  outline: 4px; /* small rounding or 0 for perfect square */
-  min-width: 48px; /* override Vuetify default */
-  border-radius: 4px; /* small rounding or 0 for perfect square */
-  padding: 0;     /* optional: remove extra padding */
-  /* display: flex; */
-  
+  background-color: transparent !important;
 }
 
+.square-btn {
+  width: 43px;
+  /* same height & width */
+  height: 43px;
+  box-shadow: 1px 1px 3px rgba(4, 4, 4, 0.2);
+  outline: 4px;
+  /* small rounding or 0 for perfect square */
+  min-width: 48px;
+  /* override Vuetify default */
+  border-radius: 4px;
+  /* small rounding or 0 for perfect square */
+  padding: 0;
+  /* optional: remove extra padding */
+  /* display: flex; */
+
+}
 </style>

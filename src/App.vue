@@ -6,18 +6,18 @@
   <v-app>
     <!-- Desktop Header - Only shown on desktop -->
     <DesktopHeader v-if="!isMobile" />
-    
+
     <!-- Main content area -->
     <v-main>
       <router-view />
     </v-main>
-    
-    <!-- Mobile Bottom Navigation - Only shown on mobile, hidden on product detail pages -->
-    <BottomNavigation v-if="isMobile && !isProductDetailPage" />
-    
+
+    <!-- Mobile Bottom Navigation - hidden on product detail and cart pages -->
+    <BottomNavigation v-if="isMobile && !isProductDetailPage && !isCartPage" />
+
     <!-- Desktop Cart Drawer -->
     <CartDrawer v-if="!isMobile" />
-    
+
   </v-app>
 </template>
 
@@ -39,18 +39,22 @@ export default {
   setup() {
     const { mobile } = useDisplay()
     const route = useRoute()
-    
+
     // Determine if we're on mobile or desktop
     const isMobile = computed(() => mobile.value)
-    
+
     // Check if we're on a product detail page
     const isProductDetailPage = computed(() => {
       return route.name === 'ProductDetail'
     })
-    
+
+    // Hide bottom nav on cart page (mobile)
+    const isCartPage = computed(() => route.name === 'Cart')
+
     return {
       isMobile,
       isProductDetailPage,
+      isCartPage,
     }
   },
 }

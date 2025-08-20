@@ -13,11 +13,7 @@
         <v-btn icon class="mr-2">
           <v-icon>mdi-share-variant</v-icon>
         </v-btn>
-        <v-btn 
-          icon 
-          @click="toggleFavorite"
-          :color="isFavorited ? 'error' : 'default'"
-        >
+        <v-btn icon @click="toggleFavorite" :color="isFavorited ? 'error' : 'default'">
           <v-icon>{{ isFavorited ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
         </v-btn>
       </div>
@@ -25,13 +21,8 @@
 
     <!-- Product Image Section -->
     <v-container class="image-section pa-0">
-      <v-img
-        :src="product.image"
-        :height="isMobile ? 300 : 400"
-        contain
-        class="bg-white"
-      />
-      
+      <v-img :src="product.image" :height="isMobile ? 300 : 400" contain class="bg-white" />
+
       <!-- Image Dots Indicator -->
       <div class="text-center py-2">
         <span v-for="i in 5" :key="i" class="dot" :class="{ active: i === 1 }"></span>
@@ -43,7 +34,7 @@
       <div class="pt-6">
         <h1 class="product-title mb-2">{{ product.title }}</h1>
         <h2 class="product-price font-weight-bold mb-4">{{ formatPrice(product.price) }}</h2>
-        
+
         <!-- Storage/Size Options -->
         <div class="mb-4">
           <h4 class="text-subtitle-1 mb-2">Available Options:</h4>
@@ -122,26 +113,13 @@
         <!-- Comments Section -->
         <div class="comments-section mb-6">
           <h3 class="text-h6 mb-3">Comments</h3>
-          
+
           <!-- Add Comment Input -->
           <div class="add-comment mb-4">
-            <v-text-field
-              v-model="newComment"
-              label="Add a Comment"
-              variant="outlined"
-              placeholder="Share your thoughts..."
-              append-inner-icon="mdi-emoticon-outline"
-              hide-details
-              class="mb-2"
-            />
+            <v-text-field v-model="newComment" label="Add a Comment" variant="outlined"
+              placeholder="Share your thoughts..." append-inner-icon="mdi-emoticon-outline" hide-details class="mb-2" />
             <div class="d-flex justify-end">
-              <v-btn
-                color="primary"
-                variant="outlined"
-                size="small"
-                @click="addComment"
-                :disabled="!newComment.trim()"
-              >
+              <v-btn color="primary" variant="outlined" size="small" @click="addComment" :disabled="!newComment.trim()">
                 Post Comment
               </v-btn>
             </div>
@@ -149,11 +127,7 @@
 
           <!-- Comments List -->
           <div class="comments-list">
-            <div 
-              v-for="comment in comments" 
-              :key="comment.id" 
-              class="comment-item mb-4"
-            >
+            <div v-for="comment in comments" :key="comment.id" class="comment-item mb-4">
               <div class="d-flex">
                 <v-avatar size="40" class="mr-3">
                   <v-img :src="comment.avatar" />
@@ -165,13 +139,8 @@
                   </div>
                   <p class="text-body-2 mb-2">{{ comment.text }}</p>
                   <div class="d-flex align-center">
-                    <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="likeComment(comment.id)"
-                      :color="comment.isLiked ? 'primary' : 'default'"
-                    >
+                    <v-btn icon size="small" variant="text" @click="likeComment(comment.id)"
+                      :color="comment.isLiked ? 'primary' : 'default'">
                       <v-icon size="16">mdi-thumb-up</v-icon>
                     </v-btn>
                     <span class="text-caption ml-1">{{ comment.likes }}</span>
@@ -181,58 +150,36 @@
             </div>
           </div>
 
-                                     <!-- Show More Comments Button -->
-         <div class="text-center">
-           <v-btn
-             variant="outlined"
-             color="grey"
-             @click="showMoreComments"
-             v-if="comments.length > 2"
-           >
-             Show More Comments
-           </v-btn>
-         </div>
+          <!-- Show More Comments Button -->
+          <div class="text-center">
+            <v-btn variant="outlined" color="grey" @click="showMoreComments" v-if="comments.length > 2">
+              Show More Comments
+            </v-btn>
+          </div>
 
-         <!-- Action Buttons Section -->
-         <div class="action-buttons-section mb-6">
-           <v-row>
-             <v-col cols="6">
-               <v-btn
-                 size="large"
-                 block
-                 @click="addToCart"
-                 class="add-to-cart-btn"
-                 elevation="2"
-               >
-                 Add to Cart
-               </v-btn>
-             </v-col>
-             <v-col cols="6">
-               <v-btn
-                 size="large"
-                 block
-                 @click="buyNow"
-                 class="buy-now-btn"
-                 elevation="2"
-               >
-                 Buy Now
-               </v-btn>
-             </v-col>
-           </v-row>
-         </div>
+          <!-- Action Buttons Section -->
+          <div class="action-buttons-section mb-6">
+            <v-row>
+              <v-col cols="6">
+                <v-btn size="large" block @click="addToCart" class="add-to-cart-btn" elevation="2">
+                  Add to Cart
+                </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn size="large" block @click="buyNow" class="buy-now-btn" elevation="2">
+                  Buy Now
+                </v-btn>
+              </v-col>
+            </v-row>
+          </div>
 
-       </div>
+        </div>
 
-      <!-- Similar Products -->
+        <!-- Similar Products -->
         <div v-if="!isMobile" class="similar-products mb-6">
           <h3 class="text-h6 mb-3">Similar Products</h3>
           <v-row>
-            <v-col 
-              v-for="similarProduct in similarProducts" 
-              :key="similarProduct.id"
-              cols="6"
-              md="3"
-            >
+            <v-col v-for="similarProduct in similarProducts" :key="similarProduct.id" cols="6" md="3">
               <ProductCard :product="similarProduct" :is-desktop="!isMobile" />
             </v-col>
           </v-row>
@@ -250,11 +197,7 @@
   </div>
 
   <!-- Success Snackbar -->
-  <v-snackbar
-    v-model="showSuccessMessage"
-    color="success"
-    timeout="3000"
-  >
+  <v-snackbar v-model="showSuccessMessage" color="success" timeout="3000">
     Product added to cart successfully!
     <template v-slot:actions>
       <v-btn variant="text" @click="showSuccessMessage = false">
@@ -352,7 +295,7 @@ export default {
       if (product.value) {
         cartStore.addToCart(product.value)
         showSuccessMessage.value = true
-        
+
         // Open cart drawer on desktop
         if (!isMobile.value) {
           cartStore.openDrawer()
@@ -422,7 +365,7 @@ export default {
       if (product.value) {
         cartStore.addToCart(product.value)
         showSuccessMessage.value = true
-        
+
         // Navigate to cart page
         router.push('/cart')
       }
@@ -441,10 +384,10 @@ export default {
     onMounted(async () => {
       const productId = parseInt(route.params.id)
       loading.value = true
-      
+
       try {
         product.value = await productStore.fetchProductById(productId)
-        
+
         // Load all products if not already loaded (for similar products)
         if (productStore.products.length === 0) {
           await productStore.fetchProducts()
@@ -465,12 +408,12 @@ export default {
       showSuccessMessage,
       newComment,
       comments,
-      
+
       // Computed
       isMobile,
       isFavorited,
       similarProducts,
-      
+
       // Methods
       goBack,
       toggleFavorite,
@@ -520,7 +463,7 @@ export default {
 
 .product-info {
   border-radius: 24px 24px 0 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .product-title {
@@ -540,7 +483,7 @@ export default {
 }
 
 .seller-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .description-text {
@@ -590,7 +533,7 @@ export default {
 .add-to-cart-btn:hover {
   background-color: #3A3A3A !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .buy-now-btn {
@@ -606,7 +549,7 @@ export default {
 .buy-now-btn:hover {
   background-color: #009688 !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 
@@ -626,11 +569,11 @@ export default {
   .product-title {
     font-size: 1.25rem;
   }
-  
+
   .product-price {
     font-size: 1.75rem;
   }
-  
+
   .fixed-bottom-actions {
     padding: 12px 16px;
   }
@@ -643,7 +586,7 @@ export default {
     margin: 0 auto;
     border-radius: 16px;
   }
-  
+
   .fixed-bottom-actions {
     max-width: 1200px;
     margin: 0 auto;

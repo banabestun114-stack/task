@@ -16,7 +16,6 @@
   <div class="text-center flex-grow-1">
     <h2>Liked</h2>
   </div>
-
 </div>
 
     <!-- Empty Favorites State -->

@@ -3,55 +3,52 @@
   Reusable card component for displaying products with responsive design
 -->
 <template>
-  <v-card 
-    class="product-card" 
-    @click="goToProduct"
-    :class="{ 'desktop-card': isDesktop }"
-  >
+  <v-card class="product-card" @click="goToProduct" :class="{ 'desktop-card': isDesktop }">
     <div class="position-relative">
-      <v-img
-        :src="product.image"
-        :height="isDesktop ? 200 : 160"
-        contain
-        class="bg-white product-image"
-      />
-      
+      <v-img :src="product.image" :height="isDesktop ? 200 : 120" contain class="bg-white product-image" />
+
       <!-- Favorite Button -->
-      <v-btn
-        icon
-        size="small"
-        class="favorite-btn"
-        :color="isFavorited ? 'error' : 'default'"
-        @click.stop="toggleFavorite"
-      >
+      <v-btn icon size="small" class="favorite-btn" :color="isFavorited ? 'error' : 'default'"
+        @click.stop="toggleFavorite">
         <v-icon size="16">{{ isFavorited ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
-      
+
       <!-- Brand Chip -->
-      <v-chip
-        size="small"
-        class="brand-chip"
-        color="white"
-      >
-        {{ getBrandName(product.category) }}
+      <v-chip size="small" class="brand-chip" color="black">
+        zara
       </v-chip>
 
       <!-- Desktop specific badges -->
-    <div v-if="isDesktop" class="desktop-badges flex">
-  <div>
-    <v-chip size="small" color="primary" class="new-badge">New</v-chip>
-  </div>
-  <div>
-    <v-chip size="small" color="warning" class="express-badge">
-      <v-icon size="16" class="mr-1">mdi-truck-fast</v-icon>
-    </v-chip>
-  </div>
-</div>
+      <div v-if="isDesktop" class="desktop-badges flex">
+        <div>
+          <v-chip size="small" color="primary" class="new-badge">New</v-chip>
+        </div>
+        <div>
+          <v-chip size="small" color="warning" class="express-badge">
+            <v-icon size="16" class="mr-1">mdi-truck-fast</v-icon>
+          </v-chip>
+        </div>
+        <!-- </div v-else class="desktop-badges flex">
+      <div>
+        <v-chip size="small" color="primary" class="new-badge">zara</v-chip>
+      </div>
+      <div> -->
+
+      </div>
     </div>
 
     <v-card-text class="pa-2">
       <h3 class="product-title  mb-2">{{ product.title }}</h3>
-      
+
+      <div v-if="!isDesktop">
+        <div class="auction-info">
+          <v-avatar size="20" class="mr-2">
+            <v-img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" />
+          </v-avatar>
+          <span class="text-body-2">Khalid S.</span>
+
+        </div>
+      </div>
 
       <!-- Price and Details -->
       <div class="d-flex justify-space-between align-center mb-2">
@@ -60,19 +57,21 @@
         </p>
         <span v-if="!isDesktop" class="text-body-2">Size M</span>
         <span v-else class="text-body-2">Size M L XL</span>
-      </div> 
+      </div>
+
+
 
 
       <!-- Desktop specific info -->
       <div v-if="isDesktop" class="desktop-info pa-2 ">
         <div class="d-flex align-center justify-space-between">
-        
+
           <div class="auction-info">
-              <v-avatar size="20" class="mr-2">
+            <v-avatar size="20" class="mr-2">
               <v-img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" />
-              </v-avatar>
-              <span class="text-body-2">Khalid S.</span>
-                  <v-icon v-if="isDesktop" color="green" size="16" class="ml-1">mdi-check-circle</v-icon>
+            </v-avatar>
+            <span class="text-body-2">Khalid S.</span>
+            <v-icon v-if="isDesktop" color="green" size="16" class="ml-1">mdi-check-circle</v-icon>
           </div>
           <div class="d-flex align-center">
             <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
@@ -136,21 +135,12 @@ export default {
      * @param {string} category - Product category
      * @returns {string} Brand name
      */
-    const getBrandName = (category) => {
-      const brands = {
-        electronics: 'Zara',
-        jewelery: 'Pandora',
-        "men's clothing": 'H&M',
-        "women's clothing": 'Zara',
-      }
-      return brands[category] || 'Zara'
-    }
+
 
     return {
       isFavorited,
       toggleFavorite,
       goToProduct,
-      getBrandName,
     }
   },
 }
@@ -163,14 +153,14 @@ export default {
   border-radius: 15px;
   overflow: hidden;
   height: 100%;
-   background-color: transparent !important;
+  background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
 .product-card:hover {
   transform: translateY(1px);
-  box-shadow: 0 ;
+  box-shadow: 0;
 }
 
 .desktop-card {
@@ -194,7 +184,7 @@ export default {
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: rgba(89, 74, 74, 0.9) !important;
   z-index: 2;
 }
 
@@ -203,6 +193,8 @@ export default {
   top: 8px;
   left: 8px;
   z-index: 2;
+  background-color: rgb(255, 255, 255)4;
+  /* color:#1d0a0a; */
 }
 
 .desktop-badges {
@@ -212,8 +204,9 @@ export default {
   left: 8px;
   gap: 4px;
   z-index: 2;
-  gap: 8px; /* space between badges */
-  align-items: center; 
+  gap: 8px;
+  /* space between badges */
+  align-items: center;
 }
 
 .new-badge {
@@ -233,16 +226,16 @@ export default {
   box-shadow: none;
   overflow: hidden;
   height: 2.5rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.25;
-  
+
 }
 
 .desktop-card .product-title {
   font-size: 0.88rem;
   height: 3rem;
   /* -webkit-line-clamp: 3; */
-  
+
 }
 
 .price-text {
@@ -251,7 +244,7 @@ export default {
 
 .desktop-card .price-text {
   font-size: 1.25rem;
-  
+
 }
 
 .desktop-info {
@@ -260,7 +253,7 @@ export default {
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid #e0e0e0;
-  
+
 }
 
 .auction-info {
@@ -274,12 +267,12 @@ export default {
   .product-card {
     border-radius: 8px;
   }
-  
+
   .product-title {
-    font-size: 0.55rem;
+    font-size: 0.8rem;
     height: 2.2rem;
   }
-  
+
   .price-text {
     font-size: 1rem;
   }
