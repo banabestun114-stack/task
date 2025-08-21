@@ -1,27 +1,27 @@
 <!--
-  Product Detail Page Component
+  Product Detail Page Component mobile and desctop
   Displays detailed product information with responsive design
 -->
 <template>
   <div v-if="product" class="product-detail">
-    <!-- Header -->
-    <div class="detail-header d-flex align-center justify-space-between pa-4 bg-white">
-      <v-btn icon @click="goBack">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-      <div class="d-flex">
-        <v-btn icon class="mr-2">
-          <v-icon>mdi-share-variant</v-icon>
-        </v-btn>
-        <v-btn icon @click="toggleFavorite" :color="isFavorited ? 'error' : 'default'">
-          <v-icon>{{ isFavorited ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
-        </v-btn>
-      </div>
-    </div>
 
     <!-- Product Image Section -->
     <v-container class="image-section pa-0">
-      <v-img :src="product.image" :height="isMobile ? 300 : 400" contain class="bg-white" />
+      <div class="image-overlay d-flex align-center justify-space-between">
+        <v-btn icon size="small" rounded="0" variant="text" class="overlay-btn" @click="goBack">
+          <v-icon size="18">mdi-arrow-left</v-icon>
+        </v-btn>
+        <div class="d-flex">
+          <v-btn icon size="small" rounded="0" variant="text" class="overlay-btn mr-2">
+            <v-icon>mdi-share-variant</v-icon>
+          </v-btn>
+          <v-btn icon size="small" rounded="0" variant="text" class="overlay-btn" @click="toggleFavorite">
+            <v-icon :color="isFavorited ? 'error' : undefined">
+              {{ isFavorited ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+          </v-btn>
+        </div>
+      </div>
+      <v-img :src="product.image" :height="isMobile ? 250 : 400" contain class="bg-white" />
 
       <!-- Image Dots Indicator -->
       <div class="text-center py-2">
@@ -33,93 +33,243 @@
     <v-container class="product-info bg-white rounded-t-xl mt-n4" style="position: relative; z-index: 1;">
       <div class="pt-6">
         <h1 class="product-title mb-2">{{ product.title }}</h1>
-        <h2 class="product-price font-weight-bold mb-4">{{ formatPrice(product.price) }}</h2>
+        <div v-if="isMobile" class="price-options-mobile d-flex align-center justify-space-between mb-4">
+          <h2 class="product-price  mb-0">{{ formatPrice(product.price) }}</h2>
+          <v-chip-group v-model="selectedOption" mandatory class="mobile-chip-group">
+            <v-chip value="1TB" variant="outlined" size="small">1 TB</v-chip>
+            <v-chip value="256MB" variant="outlined" size="small">256 MB</v-chip>
+            <v-chip value="512MB" variant="outlined" size="small">512 MB</v-chip>
+          </v-chip-group>
+        </div>
+        <!-- <h2 v-else class="product-price font-weight-bold mb-4">{{ formatPrice(product.price) }}</h2> -->
 
         <!-- Storage/Size Options -->
-        <div class="mb-4">
+        <!-- <div class="mb-4" v-if="!isMobile">
           <h4 class="text-subtitle-1 mb-2">Available Options:</h4>
           <v-chip-group v-model="selectedOption" mandatory>
             <v-chip value="1TB" variant="outlined">1 TB</v-chip>
             <v-chip value="256MB" variant="outlined">256 MB</v-chip>
             <v-chip value="512MB" variant="outlined">512 MB</v-chip>
           </v-chip-group>
-        </div>
+        </div> -->
 
         <!-- Seller Information -->
-        <v-card variant="outlined" class="seller-card mb-4">
+        <v-card class="seller-card mb-4 d-flex align-center">
           <v-card-text class="pa-4">
             <div class="d-flex align-center">
-              <v-avatar size="50" class="mr-3">
+              <v-avatar size="26" class="mr-3">
                 <v-img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" />
               </v-avatar>
               <div class="flex-grow-1">
-                <p class="font-weight-medium mb-1">Khalid S.</p>
-                <div class="d-flex align-center">
-                  <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
-                  <span class="text-body-2">{{ product.rating.rate }} | {{ product.rating.count }} Reviews</span>
+                <div class="d-flex justify-space-between">
+                  <div class="d-flex align-center">
+                    <p class="font-weight-medium mb-1">Khalid S.</p>
+                    <v-icon color="green" size="24">mdi-check-circle</v-icon>
+                  </div>
+                  <div class="d-flex align-center">
+                    <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
+                    <span class="text-body-2">{{ product.rating.rate }} | <span class="text-grey">{{
+                        product.rating.count }} Reviews</span></span>
+                  </div>
                 </div>
               </div>
-              <v-icon color="green" size="24">mdi-check-circle</v-icon>
             </div>
           </v-card-text>
         </v-card>
 
+
         <!-- Product Description -->
         <div class="description-section mb-6">
-          <h3 class="text-h6 mb-3">Description</h3>
           <p class="text-body-1 description-text">
             {{ product.description }}
           </p>
         </div>
 
-        <!-- Product Specifications -->
-        <div class="specifications-section mb-6">
-          <h3 class="text-h6 mb-3">Specifications</h3>
-          <v-card variant="outlined">
-            <v-card-text>
-              <v-row>
-                <v-col cols="6">
-                  <p class="text-body-2 mb-1"><strong>Category:</strong></p>
-                  <p class="text-capitalize">{{ product.category }}</p>
-                </v-col>
-                <v-col cols="6">
-                  <p class="text-body-2 mb-1"><strong>Rating:</strong></p>
-                  <p>{{ product.rating.rate }}/5 ({{ product.rating.count }} reviews)</p>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </div>
+        <v-divider class="mx-2" />
+        <v-spacer style="height:16px;"></v-spacer>
 
         <!-- Delivery Options -->
-        <div class="delivery-section mb-6">
-          <h3 class="text-h6 mb-3">Delivery Options</h3>
-          <v-card variant="outlined" class="delivery-card">
+        <div class="delivery-section mb-6 ">
+          <h3 class="text-h6 mb-3 font-weight-bold">Delivery Options</h3>
+          <v-card class="delivery-card">
             <v-card-text class="pa-3">
               <div class="d-flex align-center">
-                <v-icon color="primary" class="mr-3">mdi-map-marker</v-icon>
                 <div class="flex-grow-1">
                   <p class="font-weight-medium mb-1">Villa No. 278 Khalifa City Park</p>
-                  <p class="text-body-2 text-grey mb-0">Abu Dhabi</p>
+                  <p class="font-weight-medium mb-1">Abu Dhabi</p>
+                  <p class="font-weight-medium mb-1">Unlted Arab Emirates</p>
                 </div>
-                <v-btn icon size="small">
-                  <v-icon>mdi-pencil</v-icon>
+                <v-btn icon rounded="lg" width="40" height="40">
+                  <v-icon size="20">mdi-pencil</v-icon>
                 </v-btn>
               </div>
             </v-card-text>
           </v-card>
         </div>
 
+        <v-container class="pa-4" fluid>
+          <!-- Delivery Options -->
+          <v-card class="pa-3 mb-4" elevation="0">
+            <div class="d-flex">
+              <!-- Standard Delivery -->
+              <v-card class="pa-3 mr-2 flex-grow-1 text-center d-flex flex-column justify-center align-center"
+                rounded="xl" width="150" height="140">
+                <h4 class="font-weight-large mb-1">Standard Delivery</h4>
+                <div class="text-body-2 mb-2">5 - 7 days</div>
+                <v-chip class="custom-chip" size="small">Free</v-chip>
+              </v-card>
+
+              <!-- Express Delivery -->
+              <v-card class="pa-3 flex-grow-1 text-center d-flex flex-column justify-center align-center" color="yellow"
+                rounded="xl" elevation="0" width="150" height="140">
+                <h4 class="font-weight-medium" style="color: black;">Express Delivery</h4>
+                <div class="text-body-2 mb-2" style="color: black;">1 - 2 days</div>
+                <v-chip class="custom-chip-dark" size="small">+15 IQD</v-chip>
+              </v-card>
+            </div>
+          </v-card>
+
+          <v-divider class="mx-2" />
+          <v-spacer style="height:16px;"></v-spacer>
+
+          <!-- Product Details -->
+          <h3 class="text-h6 font-weight-bold mb-3">Product Details</h3>
+
+          <v-list density="compact">
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-medium">Brand</v-list-item-title>
+              <v-chip class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">American Eagles
+                Outfitters</v-chip>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-medium">Model Name</v-list-item-title>
+              <v-chip class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">
+                iPhone 14 Pro Max 512GB Silver 5G With FaceTime <br> - Middle East Version
+              </v-chip>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-medium">Wireless Carrier</v-list-item-title>
+              <v-chip class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">Unlocked for All
+                Carriers</v-chip>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-medium">Memory</v-list-item-title>
+              <v-chip class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">No Expandable Memory</v-chip>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-medium">Colors</v-list-item-title>
+              <div class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">
+                <v-avatar size="20" class="mr-2 " color="cyan"></v-avatar>
+                <v-avatar size="20" class="mr-2" color="red lighten-3"></v-avatar>
+                <v-avatar size="20" class="mr-2" color="grey lighten-1"></v-avatar>
+                <v-avatar size="20" class="mr-2" color="yellow"></v-avatar>
+              </div>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title class="font-weight-small">Camera Type</v-list-item-title>
+              <v-chip class="ml-auto d-flex grey-bg" variant="outlined flat" size="medium">
+                Primary Camera + Secondary Camera
+              </v-chip>
+            </v-list-item>
+
+          </v-list>
+        </v-container>
+
+        <v-divider class="mx-2" />
+
+
+        <v-container class="pa-4" fluid>
+          <!-- Reviews Header -->
+          <div class="d-flex justify-space-between align-center mb-4">
+            <div>
+              <h3 class="text-subtitle-1 font-weight-bold mb-1">Seller's Reviews</h3>
+              <div class="text-body-2 text-grey">
+                3,092 Reviews
+              </div>
+            </div>
+            <div class="d-flex flex-column align-center">
+              <span class=" mb-1">5.0</span>
+              <v-rating :model-value="5" color="black" bg-color="grey-lighten-1" density="compact" readonly size="18"
+                class="ml-2" />
+            </div>
+          </div>
+
+          <!-- Review Card -->
+          <div class="d-flex scroll-hide pb-2" style="gap: 16px;">
+            <!-- First Review Card -->
+            <v-card class="pa-3 custom-card flex-shrink-0" variant="outlined" rounded="xl" height="220" width="320">
+              <div class="d-flex align-center mb-2 inner-no-shadow">
+                <!-- Avatar -->
+                <v-avatar size="32" class="mr-2">
+                  <v-img src="https://randomuser.me/api/portraits/men/32.jpg" />
+                </v-avatar>
+
+                <!-- Reviewer Info -->
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-space-between align-center">
+                    <p class="font-weight-medium mb-0">Ahmed Khalid</p>
+                    <div class="d-flex align-center">
+                      <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
+                      <span class="font-weight-bold text-body-2">4.5</span>
+                    </div>
+                  </div>
+                  <span class="text-caption text-grey">1 month ago</span>
+                </div>
+              </div>
+
+              <!-- Review Text -->
+              <p class="text-body-2 mb-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </p>
+            </v-card>
+
+            <!-- Second Review Card -->
+            <v-card class="pa-3 custom-card flex-shrink-0" variant="outlined" rounded="xl" height="220" width="320">
+              <div class="d-flex align-center mb-2 inner-no-shadow">
+                <v-avatar size="32" class="mr-2">
+                  <v-img src="https://randomuser.me/api/portraits/women/44.jpg" />
+                </v-avatar>
+
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-space-between align-center">
+                    <p class="font-weight-medium mb-0">Sara Ali</p>
+                    <div class="d-flex align-center">
+                      <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
+                      <span class="font-weight-bold text-body-2">5.0</span>
+                    </div>
+                  </div>
+                  <span class="text-caption text-grey">2 weeks ago</span>
+                </div>
+              </div>
+
+              <p class="text-body-2 mb-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+              </p>
+            </v-card>
+            <!-- Add more cards similarly -->
+          </div>
+        </v-container>
+
+        <v-divider class="mx-2" />
+        <v-spacer style="height:16px;"></v-spacer>
+
         <!-- Comments Section -->
         <div class="comments-section mb-6">
-          <h3 class="text-h6 mb-3">Comments</h3>
-
+          <h3 class="text-h6 mb-3 font-weight-bold">Comments</h3>
           <!-- Add Comment Input -->
           <div class="add-comment mb-4">
             <v-text-field v-model="newComment" label="Add a Comment" variant="outlined"
-              placeholder="Share your thoughts..." append-inner-icon="mdi-emoticon-outline" hide-details class="mb-2" />
+              append-inner-icon="mdi-emoticon-outline" hide-details class="mb-2" />
             <div class="d-flex justify-end">
-              <v-btn color="primary" variant="outlined" size="small" @click="addComment" :disabled="!newComment.trim()">
+              <!-- Show button only if user typed something -->
+              <v-btn v-if="newComment.trim()" color="primary" variant="outlined" size="small" @click="addComment">
                 Post Comment
               </v-btn>
             </div>
@@ -129,13 +279,13 @@
           <div class="comments-list">
             <div v-for="comment in comments" :key="comment.id" class="comment-item mb-4">
               <div class="d-flex">
-                <v-avatar size="40" class="mr-3">
+                <v-avatar size="40" class="mr-3" tile rardius="xl">
                   <v-img :src="comment.avatar" />
                 </v-avatar>
                 <div class="flex-grow-1">
-                  <div class="d-flex align-center mb-1">
+                  <div class="mb-1 d-flex flex-column">
                     <span class="font-weight-medium">{{ comment.name }}</span>
-                    <span class="text-caption text-grey ml-2">{{ comment.timeAgo }}</span>
+                    <span class="text-caption text-grey">{{ comment.timeAgo }}</span>
                   </div>
                   <p class="text-body-2 mb-2">{{ comment.text }}</p>
                   <div class="d-flex align-center">
@@ -152,7 +302,7 @@
 
           <!-- Show More Comments Button -->
           <div class="text-center">
-            <v-btn variant="outlined" color="grey" @click="showMoreComments" v-if="comments.length > 2">
+            <v-btn variant="outlined" color="grey" @click="showMoreComments" width="80%">
               Show More Comments
             </v-btn>
           </div>
@@ -186,8 +336,6 @@
         </div>
       </div>
     </v-container>
-
-
   </div>
 
   <!-- Loading State -->
@@ -197,7 +345,7 @@
   </div>
 
   <!-- Success Snackbar -->
-  <v-snackbar v-model="showSuccessMessage" color="success" timeout="3000">
+  <v-snackbar v-model="showSuccessMessage" color="primary" timeout="3000">
     Product added to cart successfully!
     <template v-slot:actions>
       <v-btn variant="text" @click="showSuccessMessage = false">
@@ -205,6 +353,8 @@
       </v-btn>
     </template>
   </v-snackbar>
+
+
 </template>
 
 <script>
@@ -432,7 +582,7 @@ export default {
 
 <style scoped>
 .product-detail {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background-color: #f5f5f5;
 }
 
@@ -447,6 +597,27 @@ export default {
   background: white;
 }
 
+.image-overlay {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 8px 12px;
+}
+
+.overlay-btn:deep(.v-btn__overlay),
+.overlay-btn:deep(.v-ripple__container) {
+  display: none;
+  border: #1a1a1a;
+  border-radius: 10px;
+}
+
+.overlay-btn {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(6px);
+}
+
 .dot {
   height: 8px;
   width: 8px;
@@ -458,7 +629,7 @@ export default {
 }
 
 .dot.active {
-  background-color: #26a69a;
+  background-color: #aee2dd;
 }
 
 .product-info {
@@ -474,17 +645,18 @@ export default {
 
 .product-price {
   font-size: 2rem;
-  color: #1976d2;
+  color: #000000;
 }
 
 .seller-card {
   border-radius: 12px;
-  transition: all 0.2s ease;
+  /* width: 0px;
+  height: 49px; */
+  border: none;
+  background-color: #dcdcdc;
+  box-shadow: 0;
 }
 
-.seller-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
 .description-text {
   line-height: 1.6;
@@ -493,6 +665,9 @@ export default {
 
 .delivery-card {
   border-radius: 12px;
+  border: none;
+  background-color: #dcdcdc;
+  box-shadow: 0;
 }
 
 .comments-section {
@@ -502,16 +677,16 @@ export default {
 .comment-item {
   padding: 16px;
   border-radius: 12px;
-  background: #f8f9fa;
+  background: #ffffff;
   transition: all 0.2s ease;
 }
 
 .comment-item:hover {
-  background: #e9ecef;
+  background: #ffffff;
 }
 
 .add-comment {
-  background: #f8f9fa;
+  background: #ffffff;
   padding: 16px;
   border-radius: 12px;
 }
@@ -564,6 +739,42 @@ export default {
   justify-content: center;
 }
 
+/* Inline price + options on mobile */
+.price-options-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Make chips compact and evenly spaced */
+.mobile-chip-group {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-chip-group:deep(.v-chip) {
+  margin-left: 8px;
+  border-radius: 12px;
+  border:none;
+
+}
+.custom-card {
+  box-shadow: none !important;
+  /* remove any elevation shadow */
+  border: 1px solid #ddd;
+  /* thin border */
+}
+
+/* Inner element without shadow */
+.inner-no-shadow {
+  box-shadow: none !important;
+  /* remove any shadow */
+  /* optional: subtle inner border */
+  border-radius: 8px;
+  /* optional: keep rounded corners */
+  padding: 8px;
+}
 /* Mobile specific adjustments */
 @media (max-width: 600px) {
   .product-title {
@@ -594,5 +805,58 @@ export default {
     transform: translateX(-50%);
     border-radius: 16px 16px 0 0;
   }
+}
+.beautiful-btn {
+  background: none !important;
+  border-width: 0.5px !important;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  box-shadow: none !important;
+  width: 400px;
+  height: 50px;
+}
+
+.grey-bg {
+    background-color: #e0e0e0;
+      border: none;
+      box-shadow: none;
+      font-weight: bold;
+      border-radius: 6px;
+      font-size: 14px;
+      padding: 6px 12px;
+      color: black;
+}
+.custom-chip {
+  background-color: #424242;
+  color: rgb(255, 255, 255);
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+  border-radius: 15px;
+  /* color: grey; */
+}
+
+.custom-chip-dark {
+  background-color: #424242;
+  color: white;
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.scroll-hide {
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 </style>
