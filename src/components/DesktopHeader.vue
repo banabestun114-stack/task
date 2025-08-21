@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <v-divider vertical class="mx-3" />
+      <v-divider vertical class="mx-2" />
 
       <!-- Navigation Links -->
       <div class="d-flex align-center mr-8">

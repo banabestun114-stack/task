@@ -1,11 +1,11 @@
 <!--
-  Product Card Component
+  Product Card Component mobile and desktop
   Reusable card component for displaying products with responsive design
 -->
 <template>
   <v-card class="product-card" @click="goToProduct" :class="{ 'desktop-card': isDesktop }">
     <div class="position-relative">
-      <v-img :src="product.image" :height="isDesktop ? 200 : 120" contain class="bg-white product-image" />
+      <v-img :src="product.image" :height="isDesktop ? 150 : 100" contain class="bg-white product-image" />
 
       <!-- Favorite Button -->
       <v-btn icon size="small" class="favorite-btn" :color="isFavorited ? 'error' : 'default'"
@@ -13,12 +13,12 @@
         <v-icon size="16">{{ isFavorited ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
 
-      <!-- Brand Chip -->
+      <!-- Brand Chip mob-->
       <v-chip size="small" class="brand-chip" color="black">
         zara
       </v-chip>
 
-      <!-- Desktop specific badges -->
+      <!-- Desktop specific badges top left-->
       <div v-if="isDesktop" class="desktop-badges flex">
         <div>
           <v-chip size="small" color="primary" class="new-badge">New</v-chip>
@@ -28,12 +28,6 @@
             <v-icon size="16" class="mr-1">mdi-truck-fast</v-icon>
           </v-chip>
         </div>
-        <!-- </div v-else class="desktop-badges flex">
-      <div>
-        <v-chip size="small" color="primary" class="new-badge">zara</v-chip>
-      </div>
-      <div> -->
-
       </div>
     </div>
 
@@ -46,7 +40,6 @@
             <v-img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" />
           </v-avatar>
           <span class="text-body-2">Khalid S.</span>
-
         </div>
       </div>
 
@@ -58,9 +51,6 @@
         <span v-if="!isDesktop" class="text-body-2">Size M</span>
         <span v-else class="text-body-2">Size M L XL</span>
       </div>
-
-
-
 
       <!-- Desktop specific info -->
       <div v-if="isDesktop" class="desktop-info pa-2 ">
@@ -79,8 +69,6 @@
           </div>
         </div>
       </div>
-
-
 
     </v-card-text>
   </v-card>
@@ -189,12 +177,13 @@ export default {
 }
 
 .brand-chip {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 2;
-  background-color: rgb(255, 255, 255)4;
-  /* color:#1d0a0a; */
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 4px 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .desktop-badges {

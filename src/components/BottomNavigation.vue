@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Bottom Navigation -->
-    <v-bottom-navigation v-model="currentRoute" color="primary" fixed grow height="64" class="bottom-nav">
+    <!-- Bottom Navigation for mobile-->
+    <v-bottom-navigation v-model="currentRoute" color="primary" fixed grow height="70" class="bottom-nav">
       <v-btn @click="navigateTo('/')" :class="{ 'active-tab': currentRoute === 0 }">
         <v-icon>mdi-home</v-icon>
         <span>Home</span>
@@ -12,11 +12,6 @@
         <span>Liked</span>
       </v-btn>
 
-      <v-btn @click="navigateTo('/cart')" :class="{ 'active-tab': currentRoute === 2 }">
-        <v-icon>mdi-cart-outline</v-icon>
-        <span>Cart</span>
-        <v-badge v-if="cartStore.totalItems > 0" :content="cartStore.totalItems" color="error" class="cart-badge" />
-      </v-btn>
 
       <v-btn @click="navigateTo('/store')" :class="{ 'active-tab': currentRoute === 3 }">
         <v-icon>mdi-store</v-icon>
@@ -31,6 +26,7 @@
         <v-btn class="add-btn-simple" @click="navigateTo('/place-ad')" elevation="0">
           <v-icon size="28" color="white">mdi-plus</v-icon>
         </v-btn>
+        <span>Place Ad</span>
       </div>
     </v-bottom-navigation>
   </div>
@@ -39,14 +35,12 @@
 <script>
 import { ref, watch, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useCartStore } from '../stores/cart'
 
 export default {
   name: 'BottomNavigation',
   setup() {
     const router = useRouter()
     const route = useRoute()
-    const cartStore = useCartStore()
 
     const currentRoute = ref(0)
     const isCartPage = computed(() => route.path === '/cart')
@@ -82,7 +76,6 @@ export default {
     return {
       currentRoute,
       navigateTo,
-      cartStore,
       showMoreMenu,
       isCartPage,
     }
@@ -98,7 +91,7 @@ export default {
   right: 0;
   bottom: 0;
   z-index: 100;
-  height: 64px !important;
+  height: 110px !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -138,25 +131,6 @@ export default {
   transform: scale(1.05);
 }
 
-/* .v-btn {
-  transition: all 0.3s ease;
-  flex-direction: column;
-  min-width: 0 !important;
-  padding: 0 0 !important;
-  height: 64px !important;
-  font-size: 14px;
-  color: #222 !important;
-  background: transparent !important;
-}
-
-.v-btn.active-tab {
-  color: #13b3b3 !important;
-}
-
-.v-btn:not(.add-btn-simple) {
-  background-color: rgba(38, 166, 154, 0.08) !important;
-} */
-
 .v-icon {
   margin-bottom: 2px;
 }
@@ -168,7 +142,7 @@ export default {
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .add-btn-simple {
     width: 56px !important;
     height: 56px !important;
@@ -182,7 +156,6 @@ export default {
     /* adjust for smaller button */
   }
 }
-
 .cart-badge {
   position: absolute;
   top: -8px;

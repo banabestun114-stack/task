@@ -20,7 +20,7 @@
     </div>
 
     <div v-else class="cart-content">
-      <div class="cart-items mb-6">
+      <div class="cart-items mb-4">
         <v-card v-for="item in cartStore.items" :key="item.product.id" class="cart-item-card mb-4" variant="outlined">
           <v-card-text class="pa-4">
             <v-row align="center">
@@ -46,13 +46,16 @@
               </v-col>
 
               <v-col cols="3" sm="3" class="text-center">
-                <v-btn icon size="small" color="error" rounded="0" variant="text" @click="removeItem(item.product.id)"
-                  class="mb-3">
-                  <v-icon size="18">mdi-delete</v-icon>
-                </v-btn>
-
+                <!-- Delete Button on Top -->
+                <div class="d-flex align-right justify-right">
+                  <v-btn icon size="small" color="error" rounded="0" variant="text" @click="removeItem(item.product.id)"
+                    class="mb-3">
+                    <v-icon size="18">mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+                <!-- Quantity Controls Below -->
                 <div class="quantity-controls d-flex align-center justify-center">
-                  <v-btn icon size="xs" rounded="0" variant="outlined"
+                  <v-btn icon size="s" rounded="0" variant="outlined"
                     @click="decreaseQuantity(item.product.id, item.quantity)" :disabled="item.quantity <= 1">
                     <v-icon size="16">mdi-minus</v-icon>
                   </v-btn>
@@ -63,6 +66,9 @@
                   </v-btn>
                 </div>
               </v-col>
+
+
+
             </v-row>
           </v-card-text>
         </v-card>
@@ -97,7 +103,7 @@
             <span>Subtotal</span>
             <span>1,000 IQD</span>
           </div>
-          <div class="summary-row d-flex justify-space-between mb-2 text-success">
+          <div class="summary-row d-flex justify-space-between mb-2 ">
             <span>Discount</span>
             <span>23.0 IQD</span>
           </div>
@@ -111,10 +117,10 @@
             <span>1,057 IQD</span>
           </div>
         </v-card-text>
-        <div class="cart-actions">
-          <v-row>
-            <v-col>
-              <v-btn color="primary" size="large" block>
+        <div class="cart-actions d-flex align-center justify-center">
+          <v-row class="d-flex align-center justify-center">
+            <v-col class="d-flex align-center justify-center">
+              <v-btn color="primary" size="large"  class="d-flex align-center justify-center">
                 Proceed to Checkout
               </v-btn>
             </v-col>
@@ -258,6 +264,7 @@ export default {
 
 .summary-row {
   font-size: 0.95rem;
+  color:black
 }
 
 .total-row {
@@ -266,6 +273,8 @@ export default {
 
 .cart-actions {
   margin-bottom: 100px;
+  /* width: 400px; */
+  
 }
 
 /* show dynamic summary by default */
