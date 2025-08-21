@@ -84,7 +84,6 @@
       </div>
     </v-container>
 
-
     <!-- Desktop Content -->
     <div v-if="!isMobile" class="desktop-content">
       <!-- Featured Slider Section -->
@@ -161,13 +160,10 @@
                 <v-col cols="auto" class="text-center">
                   <v-icon>mdi-cog</v-icon>
                 </v-col>
-
               </v-row>
             </v-card>
           </v-col>
         </v-row>
-
-
       </v-container>
     </div>
 
@@ -177,8 +173,8 @@
         <v-col v-for="product in filteredProducts" :key="product.id" :cols="isMobile
           ? 6 : 3" :sm="isMobile
             ? 6 : 4" :md="isMobile
-            ? 4 : 3" :lg="isMobile
-            ? 3 : 3">
+              ? 4 : 3" :lg="isMobile
+              ? 3 : 3">
 
           <ProductCard :product="product" :is-desktop="!isMobile" />
         </v-col>
@@ -483,9 +479,9 @@ export default {
 
 .desktop-content {
   /* padding-top: 5px; */
-    padding-bottom: 0px;
-      padding-top: 0px;
-      margin-top: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-top: 0px;
   /* Account for fixed header */
 }
 
@@ -504,8 +500,8 @@ export default {
 
 .sort-inline {
   min-width: 160px;
-    border: none;
-    box-shadow: none;
+  border: none;
+  box-shadow: none;
 }
 
 .sort-inline .sort-label {
@@ -639,9 +635,11 @@ export default {
   border-radius: 15px !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
+
 .search-input :deep(input::placeholder) {
   opacity: 0.9;
 }
+
 /* Glassmorphism cart button */
 .cart {
   width: 56px;
@@ -649,13 +647,16 @@ export default {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .cart:hover {
   transform: scale(1.05);
 }
+
 .glass {
   background: none;
   border: 1px solid rgb(255, 255, 255);
 }
+
 .blur-card {
   background: rgba(20, 32, 4, 0.2);
   color: #eee;
@@ -668,29 +669,36 @@ export default {
   -webkit-backdrop-filter: blur(12px);
   /* Safari support */
 }
+
 /* Recently Added Section Styles */
 .recently-added-section {
   padding: 0 16px;
   margin-bottom: 24px;
 }
+
 .recently-added-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .recent-product-card {
   width: 100%;
 }
+
 .product-card {
   border-radius: 12px;
   overflow: hidden;
 }
+
 .image-container {
   position: relative;
 }
+
 .product-image {
   width: 100%;
 }
+
 .brand-chip {
   position: absolute;
   top: 8px;
@@ -700,11 +708,13 @@ export default {
   padding: 4px 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .brand-text {
   font-size: 10px;
   font-weight: 600;
   color: #000;
 }
+
 .favorite-btn {
   position: absolute;
   top: 8px;
@@ -715,6 +725,7 @@ export default {
   height: 28px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .image-dots {
   position: absolute;
   bottom: 8px;
@@ -723,68 +734,80 @@ export default {
   display: flex;
   gap: 4px;
 }
+
 .dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.6);
 }
+
 .dot.active {
   background: white;
 }
+
 .product-title {
   font-size: 14px;
   font-weight: 600;
   color: #000;
   margin: 0;
 }
+
 .seller-name {
   font-size: 12px;
   color: #666;
 }
+
 .price {
   font-size: 14px;
   font-weight: 700;
   color: #000;
 }
+
 .size {
   font-size: 12px;
   color: #999;
 }
+
 /* Cart Items Section Styles */
 .cart-items-section {
   padding: 0 16px;
   margin-bottom: 24px;
 }
+
 .cart-items-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .cart-item-card {
   width: 100%;
 }
+
 .cart-card {
   cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 15px;
-    overflow: hidden;
-    height: 100%;
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 100%;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
+
 .cart-card:hover {
   transform: translateY(1px);
-    box-shadow: 0;
+  box-shadow: 0;
 }
+
 .cart-image-container {
   position: relative;
 }
 
 .cart-image {
   width: 100%;
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .cart-card:hover .cart-image {
@@ -802,11 +825,13 @@ export default {
   width: 39px;
   /* height: 25px; */
 }
+
 .cart-brand-text {
   font-size: 10px;
   font-weight: 600;
   color: #000;
 }
+
 .cart-favorite-btn {
   position: absolute;
   top: 8px;
@@ -817,25 +842,30 @@ export default {
   height: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .cart-title {
   font-size: 13px;
   font-weight: 600;
   color: #000;
   margin: 0;
 }
+
 .cart-seller-name {
   font-size: 11px;
   color: #666;
 }
+
 .cart-price {
   font-size: 13px;
   font-weight: 700;
   color: #000;
 }
+
 .cart-size {
   font-size: 11px;
   color: #999;
 }
+
 .beautiful-btn {
   background: none !important;
   border-width: 0.5px !important;

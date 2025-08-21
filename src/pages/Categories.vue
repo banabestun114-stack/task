@@ -3,10 +3,7 @@
   Displays all available product categories with navigation
 -->
 <template>
-  <v-container
-    class="categories-page pa-4"
-    :class="{ 'desktop-full': !isMobile }"
-  >
+  <v-container class="categories-page pa-4" :class="{ 'desktop-full': !isMobile }">
     <!-- Header -->
     <div class="header-row d-flex flex-column align-center mb-6">
       <div class="d-flex align-center w-100">
@@ -22,12 +19,8 @@
     <!-- Categories List -->
     <v-card class="categories-card" variant="flat">
       <v-list lines="one" class="bg-white">
-        <v-list-item
-          v-for="category in categoryList"
-          :key="category.value"
-          @click="selectCategory(category)"
-          class="category-item"
-        >
+        <v-list-item v-for="category in categoryList" :key="category.value" @click="selectCategory(category)"
+          class="category-item">
           <v-list-item-title class="category-label">
             {{ category.label }}
           </v-list-item-title>
@@ -177,9 +170,11 @@ export default {
     padding: 0;
     max-width: 100vw;
   }
+
   .categories-card {
     border-radius: 0;
   }
+
   .category-item {
     padding-left: 0;
     padding-right: 0;

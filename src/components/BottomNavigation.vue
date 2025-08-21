@@ -12,7 +12,6 @@
         <span>Liked</span>
       </v-btn>
 
-
       <v-btn @click="navigateTo('/store')" :class="{ 'active-tab': currentRoute === 3 }">
         <v-icon>mdi-store</v-icon>
         <span>Store</span>
@@ -22,12 +21,14 @@
         <v-icon>mdi-menu</v-icon>
         <span>More</span>
       </v-btn>
+
       <div class="nav-center" v-if="!isCartPage">
         <v-btn class="add-btn-simple" @click="navigateTo('/place-ad')" elevation="0">
           <v-icon size="28" color="white">mdi-plus</v-icon>
         </v-btn>
         <span>Place Ad</span>
       </div>
+
     </v-bottom-navigation>
   </div>
 </template>
@@ -69,7 +70,6 @@ export default {
     )
 
     const showMoreMenu = () => {
-      // Placeholder for more menu functionality
       console.log('Show more menu')
     }
 
@@ -153,9 +153,9 @@ export default {
 
   .nav-center {
     bottom: 28px;
-    /* adjust for smaller button */
   }
 }
+
 .cart-badge {
   position: absolute;
   top: -8px;

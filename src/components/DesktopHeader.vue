@@ -3,6 +3,7 @@
   Main navigation header for desktop view with logo, search, and user actions
 -->
 <template>
+
   <v-app-bar color="white" elevation="0" border="0" height="80" class="desktop-header">
     <v-container fluid class="d-flex align-center px-6">
       <!-- Logo and Brand -->
@@ -82,8 +83,6 @@
       </v-list>
     </div>
   </v-navigation-drawer>
-
-
 </template>
 
 <script>
@@ -155,9 +154,7 @@ export default {
 .desktop-sidebar {
   border: none !important;
   box-shadow: none !important;
-  /* optional if you don’t want shadow */
   background-color: #fff;
-  /* or whatever color you want */
 }
 
 .desktop-sidebar .v-list-item {
@@ -173,18 +170,13 @@ export default {
 
 .square-btn {
   width: 43px;
-  /* same height & width */
   height: 43px;
   box-shadow: 1px 1px 3px rgba(4, 4, 4, 0.2);
   outline: 4px;
-  /* small rounding or 0 for perfect square */
   min-width: 48px;
-  /* override Vuetify default */
   border-radius: 4px;
-  /* small rounding or 0 for perfect square */
   padding: 0;
-  /* optional: remove extra padding */
-  /* display: flex; */
+
 
 }
 </style>

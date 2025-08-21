@@ -106,7 +106,6 @@
               <div class="d-flex justify-space-between text-h6 font-weight-bold">
                 <span>Total <span class="text-body-2 font-weight-normal text-grey">
                     Tax Inclusive</span></span>
-
                 <span>{{ formatPrice(cartStore.total) }}</span>
               </div>
             </div>
@@ -122,8 +121,6 @@
               Proceed to Checkout
             </v-btn>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -226,7 +223,6 @@ export default {
 
 .cart-card {
   background-color: #e4dcd1;
-  /* light beige */
 }
 
 .empty-cart {
@@ -239,6 +235,5 @@ export default {
 
 .background-grey {
   background-color: #f5f5f5;
-  /* border-radius: 8px;        */
 }
 </style>

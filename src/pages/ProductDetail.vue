@@ -3,8 +3,8 @@
   Displays detailed product information with responsive design
 -->
 <template>
-  <div v-if="product" class="product-detail">
 
+  <div v-if="product" class="product-detail">
     <!-- Product Image Section -->
     <v-container class="image-section pa-0">
       <div class="image-overlay d-flex align-center justify-space-between">
@@ -22,13 +22,11 @@
         </div>
       </div>
       <v-img :src="product.image" :height="isMobile ? 250 : 400" contain class="bg-white" />
-
       <!-- Image Dots Indicator -->
       <div class="text-center py-2">
         <span v-for="i in 5" :key="i" class="dot" :class="{ active: i === 1 }"></span>
       </div>
     </v-container>
-
     <!-- Product Information -->
     <v-container class="product-info bg-white rounded-t-xl mt-n4" style="position: relative; z-index: 1;">
       <div class="pt-6">
@@ -41,18 +39,16 @@
             <v-chip value="512MB" variant="outlined" size="small">512 MB</v-chip>
           </v-chip-group>
         </div>
-        <!-- <h2 v-else class="product-price font-weight-bold mb-4">{{ formatPrice(product.price) }}</h2> -->
-
+        <h2 v-else class="product-price font-weight-bold mb-4">{{ formatPrice(product.price) }}</h2>
         <!-- Storage/Size Options -->
-        <!-- <div class="mb-4" v-if="!isMobile">
+        <div class="mb-4" v-if="!isMobile">
           <h4 class="text-subtitle-1 mb-2">Available Options:</h4>
           <v-chip-group v-model="selectedOption" mandatory>
             <v-chip value="1TB" variant="outlined">1 TB</v-chip>
             <v-chip value="256MB" variant="outlined">256 MB</v-chip>
             <v-chip value="512MB" variant="outlined">512 MB</v-chip>
           </v-chip-group>
-        </div> -->
-
+        </div>
         <!-- Seller Information -->
         <v-card class="seller-card mb-4 d-flex align-center">
           <v-card-text class="pa-4">
@@ -69,14 +65,13 @@
                   <div class="d-flex align-center">
                     <v-icon color="orange" size="16" class="mr-1">mdi-star</v-icon>
                     <span class="text-body-2">{{ product.rating.rate }} | <span class="text-grey">{{
-                        product.rating.count }} Reviews</span></span>
+                      product.rating.count }} Reviews</span></span>
                   </div>
                 </div>
               </div>
             </div>
           </v-card-text>
         </v-card>
-
 
         <!-- Product Description -->
         <div class="description-section mb-6">
@@ -87,7 +82,7 @@
 
         <v-divider class="mx-2" />
         <v-spacer style="height:16px;"></v-spacer>
-
+        \
         <!-- Delivery Options -->
         <div class="delivery-section mb-6 ">
           <h3 class="text-h6 mb-3 font-weight-bold">Delivery Options</h3>
@@ -134,7 +129,6 @@
 
           <!-- Product Details -->
           <h3 class="text-h6 font-weight-bold mb-3">Product Details</h3>
-
           <v-list density="compact">
 
             <v-list-item>
@@ -177,12 +171,10 @@
                 Primary Camera + Secondary Camera
               </v-chip>
             </v-list-item>
-
           </v-list>
         </v-container>
 
         <v-divider class="mx-2" />
-
 
         <v-container class="pa-4" fluid>
           <!-- Reviews Header -->
@@ -248,12 +240,10 @@
                   <span class="text-caption text-grey">2 weeks ago</span>
                 </div>
               </div>
-
               <p class="text-body-2 mb-0">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
               </p>
             </v-card>
-            <!-- Add more cards similarly -->
           </div>
         </v-container>
 
@@ -308,7 +298,7 @@
           </div>
 
           <!-- Action Buttons Section -->
-          <div class="action-buttons-section mb-6">
+          <div class="action-buttons-section mb-6" v-if="isMobile">
             <v-row>
               <v-col cols="6">
                 <v-btn size="large" block @click="addToCart" class="add-to-cart-btn" elevation="2">
@@ -318,6 +308,16 @@
               <v-col cols="6">
                 <v-btn size="large" block @click="buyNow" class="buy-now-btn" elevation="2">
                   Buy Now
+                </v-btn>
+              </v-col>
+            </v-row>
+          </div>
+
+          <div class="action-buttons-section mb-6" v-else>
+            <v-row>
+              <v-col cols="12">
+                <v-btn size="large" block @click="addToCart" class="buy-now-btn" elevation="2">
+                  Add to Cart
                 </v-btn>
               </v-col>
             </v-row>
@@ -353,8 +353,6 @@
       </v-btn>
     </template>
   </v-snackbar>
-
-
 </template>
 
 <script>
@@ -563,7 +561,7 @@ export default {
       isMobile,
       isFavorited,
       similarProducts,
-
+      
       // Methods
       goBack,
       toggleFavorite,
@@ -727,10 +725,6 @@ export default {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-
-
-
-
 .loading-container {
   min-height: 100vh;
   display: flex;
@@ -739,7 +733,6 @@ export default {
   justify-content: center;
 }
 
-/* Inline price + options on mobile */
 .price-options-mobile {
   display: flex;
   align-items: center;
@@ -747,7 +740,6 @@ export default {
   gap: 12px;
 }
 
-/* Make chips compact and evenly spaced */
 .mobile-chip-group {
   display: flex;
   align-items: center;
@@ -756,9 +748,10 @@ export default {
 .mobile-chip-group:deep(.v-chip) {
   margin-left: 8px;
   border-radius: 12px;
-  border:none;
+  border: none;
 
 }
+
 .custom-card {
   box-shadow: none !important;
   /* remove any elevation shadow */
@@ -769,12 +762,10 @@ export default {
 /* Inner element without shadow */
 .inner-no-shadow {
   box-shadow: none !important;
-  /* remove any shadow */
-  /* optional: subtle inner border */
   border-radius: 8px;
-  /* optional: keep rounded corners */
   padding: 8px;
 }
+
 /* Mobile specific adjustments */
 @media (max-width: 600px) {
   .product-title {
@@ -806,6 +797,7 @@ export default {
     border-radius: 16px 16px 0 0;
   }
 }
+
 .beautiful-btn {
   background: none !important;
   border-width: 0.5px !important;
@@ -819,15 +811,16 @@ export default {
 }
 
 .grey-bg {
-    background-color: #e0e0e0;
-      border: none;
-      box-shadow: none;
-      font-weight: bold;
-      border-radius: 6px;
-      font-size: 14px;
-      padding: 6px 12px;
-      color: black;
+  background-color: #e0e0e0;
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 6px 12px;
+  color: black;
 }
+
 .custom-chip {
   background-color: #424242;
   color: rgb(255, 255, 255);
@@ -857,6 +850,5 @@ export default {
 
 .scroll-hide::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari, Opera */
 }
 </style>

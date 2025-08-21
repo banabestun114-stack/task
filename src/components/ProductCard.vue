@@ -33,7 +33,6 @@
 
     <v-card-text class="pa-2">
       <h3 class="product-title  mb-2">{{ product.title }}</h3>
-
       <div v-if="!isDesktop">
         <div class="auction-info">
           <v-avatar size="20" class="mr-2">
@@ -55,7 +54,6 @@
       <!-- Desktop specific info -->
       <div v-if="isDesktop" class="desktop-info pa-2 ">
         <div class="d-flex align-center justify-space-between">
-
           <div class="auction-info">
             <v-avatar size="20" class="mr-2">
               <v-img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" />
@@ -69,7 +67,6 @@
           </div>
         </div>
       </div>
-
     </v-card-text>
   </v-card>
 </template>
@@ -177,13 +174,13 @@ export default {
 }
 
 .brand-chip {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: rgb(255, 255, 255);
-    border-radius: 12px;
-    padding: 4px 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 4px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .desktop-badges {

@@ -1,12 +1,9 @@
 <template>
   <v-container class="cart-page pa-4">
     <div class="d-flex align-center justify-center mb-6 position-relative">
-      <!-- Back button fixed left -->
       <v-btn icon @click="goBack" class="position-absolute left-0">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
-
-      <!-- Centered title -->
       <h1 class="text-h6 m-0">My Cart</h1>
     </div>
 
@@ -66,17 +63,12 @@
                   </v-btn>
                 </div>
               </v-col>
-
-
-
             </v-row>
           </v-card-text>
         </v-card>
         <v-divider class="mx-3" />
-
       </div>
 
-      <!-- One card, two bodies: desktop/tablet (dynamic) vs mobile (static like screenshot) -->
       <v-card class="order-summary-card flat mb-0" variant="outlined">
         <v-card-text class="pt-2 order-summary-desktop">
           <div class="summary-row d-flex justify-space-between mb-2">
@@ -120,17 +112,14 @@
         <div class="cart-actions d-flex align-center justify-center">
           <v-row class="d-flex align-center justify-center">
             <v-col class="d-flex align-center justify-center">
-              <v-btn color="primary" size="large"  class="d-flex align-center justify-center">
+              <v-btn color="primary" size="large" class="d-flex align-center justify-center">
                 Proceed to Checkout
               </v-btn>
             </v-col>
           </v-row>
         </div>
       </v-card>
-
-
     </div>
-
   </v-container>
 </template>
 
@@ -264,7 +253,7 @@ export default {
 
 .summary-row {
   font-size: 0.95rem;
-  color:black
+  color: black
 }
 
 .total-row {
@@ -274,7 +263,7 @@ export default {
 .cart-actions {
   margin-bottom: 100px;
   /* width: 400px; */
-  
+
 }
 
 /* show dynamic summary by default */
@@ -305,7 +294,6 @@ export default {
 
   }
 
-  /* switch to the screenshot figures only on mobile */
   .order-summary-desktop {
     display: none;
   }

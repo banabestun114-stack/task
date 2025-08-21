@@ -64,18 +64,18 @@ export const useProductStore = defineStore('products', {
     },
 
     /**
-     * Get featured products for homepage slider
-     * @param {Object} state - Current state
-     * @returns {Array} First 5 products for featured display
+     * 
+     * @param {Object} state - 
+     * @returns {Array} 
      */
     featuredProducts: (state) => {
       return state.products.slice(0, 5)
     },
 
     /**
-     * Get products count by category
-     * @param {Object} state - Current state
-     * @returns {Object} Object with category counts
+     * 
+     * @param {Object} state 
+     * @returns {Object}
      */
     categoryCount: (state) => {
       const counts = {}
@@ -100,7 +100,6 @@ export const useProductStore = defineStore('products', {
         console.log('Products fetched successfully:', response.data.length)
       } catch (error) {
         console.error('Error fetching products:', error)
-        // Set empty array on error to prevent app crashes
         this.products = []
       } finally {
         this.loading = false

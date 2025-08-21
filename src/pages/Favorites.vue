@@ -4,50 +4,36 @@
 -->
 <template>
   <v-container class="favorites-page pa-4">
-   <div class="d-flex align-center justify-space-between w-100">
-  <!-- Left -->
-  <div v-if="isMobile" class="favorites-back-btn">
-    <v-btn icon class="back-btn" @click="goBack">
-      <v-icon>mdi-arrow-left</v-icon>
-    </v-btn>
-  </div>
+    <div class="d-flex align-center justify-space-between w-100">
+      <!-- Left -->
+      <div v-if="isMobile" class="favorites-back-btn">
+        <v-btn icon class="back-btn" @click="goBack">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </div>
 
-  <!-- Center -->
-  <div class="text-center flex-grow-1">
-    <h2 v-if="isMobile">Liked</h2>
-  </div>
-</div>
-
+      <!-- Center -->
+      <div class="text-center flex-grow-1">
+        <h2 v-if="isMobile">Liked</h2>
+      </div>
+    </div>
     <!-- Empty Favorites State -->
     <div v-if="favoritesStore.favoritesCount === 0" class="empty-favorites text-center py-12">
       <v-icon size="120" color="grey-lighten-2">mdi-heart-outline</v-icon>
       <h3 class="text-h5 mt-6 mb-3">No favorites yet</h3>
       <p class="text-body-1 text-grey mb-6">Heart your favorite products to see them here</p>
-      <v-btn 
-        color="primary" 
-        size="large"
-        @click="browsProducts"
-        prepend-icon="mdi-heart"
-      >
+      <v-btn color="primary" size="large" @click="browsProducts" prepend-icon="mdi-heart">
         Browse Products
       </v-btn>
     </div>
-
     <!-- Favorites Grid -->
     <div v-else class="favorites-content">
       <v-row>
-        <v-col
-          v-for="product in filteredFavorites"
-          :key="product.id"
-          :cols="isMobile ? 6 : 3"
-          :sm="isMobile ? 6 : 4"
-          :md="isMobile ? 4 : 3"
-          :lg="isMobile ? 3 : 3"
-        >
+        <v-col v-for="product in filteredFavorites" :key="product.id" :cols="isMobile ? 6 : 3" :sm="isMobile ? 6 : 4"
+          :md="isMobile ? 4 : 3" :lg="isMobile ? 3 : 3">
           <ProductCard :product="product" :is-desktop="!isMobile" />
         </v-col>
       </v-row>
-
       <!-- No results for filter -->
       <div v-if="filteredFavorites.length === 0" class="no-results text-center py-8">
         <v-icon size="80" color="grey-lighten-2">mdi-filter-remove</v-icon>
@@ -55,9 +41,8 @@
         <p class="text-body-2 text-grey">Try selecting a different category</p>
       </div>
 
-      
-    </div>
 
+    </div>
 
     <!-- Clear Favorites Dialog -->
     <v-dialog v-model="showClearDialog" max-width="400">
@@ -75,14 +60,8 @@
       </v-card>
     </v-dialog>
 
-
-    
     <!-- Success Snackbar -->
-    <v-snackbar
-      v-model="showSuccessMessage"
-      color="success"
-      timeout="3000"
-    >
+    <v-snackbar v-model="showSuccessMessage" color="success" timeout="3000">
       {{ successMessage }}
       <template v-slot:actions>
         <v-btn variant="text" @click="showSuccessMessage = false">
@@ -123,7 +102,7 @@ export default {
     // Get available categories from favorites
     const availableCategories = computed(() => {
       const categories = {}
-      
+
       favoritesStore.favorites.forEach(product => {
         const category = product.category
         if (!categories[category]) {
@@ -135,7 +114,7 @@ export default {
         }
         categories[category].count++
       })
-      
+
       return Object.values(categories)
     })
 
@@ -166,16 +145,16 @@ export default {
      */
     const addAllToCart = () => {
       let addedCount = 0
-      
+
       filteredFavorites.value.forEach(product => {
         cartStore.addToCart(product)
         addedCount++
       })
-      
+
       if (addedCount > 0) {
         successMessage.value = `Added ${addedCount} items to cart`
         showSuccessMessage.value = true
-        
+
         // Open cart drawer on desktop
         if (!isMobile.value) {
           cartStore.openDrawer()
@@ -197,7 +176,7 @@ export default {
       const count = favoritesStore.favoritesCount
       favoritesStore.clearFavorites()
       showClearDialog.value = false
-      
+
       successMessage.value = `Removed ${count} items from favorites`
       showSuccessMessage.value = true
     }
@@ -211,18 +190,18 @@ export default {
       // Stores
       favoritesStore,
       cartStore,
-      
+
       // Reactive data
       selectedFilter,
       showClearDialog,
       showSuccessMessage,
       successMessage,
-      
+
       // Computed
       isMobile,
       availableCategories,
       filteredFavorites,
-      
+
       // Methods
       goBack,
       browsProducts,
@@ -243,13 +222,14 @@ export default {
 .favorites-back-btn {
   margin-bottom: 12px;
 }
+
 .back-btn {
   background: #f5f5f5 !important;
   border-radius: 12px !important;
   min-width: 44px !important;
   min-height: 44px !important;
   box-shadow: none !important;
-} 
+}
 
 .empty-favorites {
   min-height: 60vh;
@@ -268,11 +248,13 @@ export default {
 }
 
 .bulk-actions {
-  margin-bottom: 100px; /* Space for mobile bottom navigation */
+  margin-bottom: 100px;
+  /* Space for mobile bottom navigation */
 }
 
 .floating-add-btn {
-  margin-bottom: 80px; /* Above bottom navigation */
+  margin-bottom: 80px;
+  /* Above bottom navigation */
   box-shadow: 0 4px 12px rgba(38, 166, 154, 0.4);
 }
 
@@ -286,13 +268,13 @@ export default {
   .favorites-page {
     padding: 16px 8px;
   }
-  
+
   .bulk-actions .d-flex {
     flex-direction: column;
     gap: 12px;
   }
-  
-  .bulk-actions .d-flex > div:last-child {
+
+  .bulk-actions .d-flex>div:last-child {
     display: flex;
     gap: 8px;
   }
@@ -310,16 +292,28 @@ export default {
   animation: fadeInUp 0.3s ease forwards;
 }
 
-.favorites-content .v-col:nth-child(1) { animation-delay: 0.1s; }
-.favorites-content .v-col:nth-child(2) { animation-delay: 0.2s; }
-.favorites-content .v-col:nth-child(3) { animation-delay: 0.3s; }
-.favorites-content .v-col:nth-child(4) { animation-delay: 0.4s; }
+.favorites-content .v-col:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.favorites-content .v-col:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.favorites-content .v-col:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.favorites-content .v-col:nth-child(4) {
+  animation-delay: 0.4s;
+}
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
